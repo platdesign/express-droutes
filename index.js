@@ -62,7 +62,7 @@ var ctrlByMethod = function(ctrl, method, dir) {
 			} );
 		} else if( exists( methodFile('m.js') ) ) {
 			ctrl[method].push( function(req, res){
-				res.json(res.code || 200, res.scope);
+				res.json(res.scope);
 			} );
 		}
 	}
@@ -133,6 +133,15 @@ var scanDirRecursive = function(dir, closure) {
 
 
 
+
+
+/**
+ * Scans a directory recursively and calls a handler on each directory with the routePath and the directoryPath
+ * @param  {absolute directory string} baseDir
+ * @param  {string} baseRoute
+ * @param  {closure} routeWorker
+ * @return {null}
+ */
 var scanDirForRoutes = function(baseDir, baseRoute, routeWorker) {
 	baseDir = path.normalize(baseDir);
 	baseRoute = baseRoute || '/';
@@ -140,6 +149,7 @@ var scanDirForRoutes = function(baseDir, baseRoute, routeWorker) {
 	scanDirRecursive(baseDir, function(dir){
 		var routePath = path.normalize(baseRoute + dir.replace(baseDir, ''));
 
+				routePath = routePath.replace('__', ':');
 		routeWorker(routePath, dir);
 	});
 
