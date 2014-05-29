@@ -1,6 +1,6 @@
 {
   "name": "express-droutes",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "dRoutes (directoryRoutes) creates routes in an Express.js-Application by scanning a given directory recursively.",
   "main": "index.js",
   "scripts": {
